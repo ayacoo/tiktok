@@ -1,0 +1,35 @@
+{
+	"name": "ayacoo/tiktok",
+	"version": "1.0.0",
+	"type": "typo3-cms-extension",
+	"description": "Provides a Tiktok online media helper",
+	"homepage": "https://www.ayacoo.de",
+	"authors": [
+		{
+			"name": "Guido Schmechel",
+			"role": "Developer"
+		}
+	],
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"require": {
+		"typo3/cms-core": "^10.4 || ^11"
+	},
+	"autoload": {
+		"psr-4": {
+			"Ayacoo\\Tiktok\\": "Classes/"
+		}
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "tiktok",
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".Build/Web"
+		}
+	}
+}
