@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ayacoo\Tiktok\Helpers;
+namespace Ayacoo\Tiktok\Helper;
 
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Folder;
