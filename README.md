@@ -38,9 +38,10 @@ In order not to have to access the oEmbed interface permanently, four fields are
 
 ### 3.1 Versions and support
 
-| News        | TYPO3      | PHP       | Support / Development                   |
-| ----------- | ---------- | ----------|---------------------------------------- |
-| 1.x         | 10.x - 11.x| 7.4 - 8.0 | features, bugfixes, security updates    |
+| Tiktok | TYPO3       | PHP       | Support / Development                |
+|--------|-------------|-----------|--------------------------------------|
+| 2.x    | 12.x        | 8.1       | features, bugfixes, security updates |
+| 1.x    | 10.x - 11.x | 7.4 - 8.0 | bugfixes, security updates           |
 
 ### 3.2 Release Management
 
@@ -59,10 +60,12 @@ to accept only bugfixes if we can reproduce the issue.
 
 ## 4 Thanks / Notices
 
-Special thanks to Georg Ringer and his [news][3] extension. A good template to build a TYPO3 extension. Here, for example, the structure of README.md is used.
+- Special thanks to Georg Ringer and his [news][3] extension. A good template to build a TYPO3 extension. Here, for example, the structure of README.md is used.
+- Thanks also to b13 for the [online-media-updater][5] extension. Parts of it were allowed to be included in this extension.
 
 
 [1]: https://getcomposer.org/
 [2]: https://semver.org/
 [3]: https://github.com/georgringer/news
 [4]: https://developers.tiktok.com/doc/embed-videos
+[5]: https://github.com/b13/online-media-updater

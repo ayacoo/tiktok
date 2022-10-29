@@ -1,6 +1,6 @@
 {
 	"name": "ayacoo/tiktok",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"type": "typo3-cms-extension",
 	"description": "Provides a Tiktok online media helper",
 	"homepage": "https://www.ayacoo.de",
@@ -14,7 +14,7 @@
 		"GPL-2.0-or-later"
 	],
 	"require": {
-		"typo3/cms-core": "^10.4 || ^11"
+		"typo3/cms-core": "^12"
 	},
 	"autoload": {
 		"psr-4": {

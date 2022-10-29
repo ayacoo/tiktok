@@ -1,0 +1,6 @@
+services:
+  Ayacoo\Tiktok\Event\FileListEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'ayacoo/tiktok/filelist-listener'
+        event: TYPO3\CMS\Filelist\Event\ProcessFileListActionsEvent
