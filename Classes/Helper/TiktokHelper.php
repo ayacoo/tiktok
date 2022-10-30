@@ -113,9 +113,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         if ($oEmbed) {
             $metaData['width'] = (int)$oEmbed['width'];
             $metaData['height'] = (int)$oEmbed['height'];
-            if (empty($file->getProperty('title'))) {
-                $metaData['title'] = $this->handleTiktokTitle($oEmbed['title']);
-            }
+            $metaData['title'] = $this->handleTiktokTitle($oEmbed['title']);
             $metaData['author'] = $oEmbed['author_name'];
             $metaData['tiktok_html'] = preg_replace(self::UNICODE_PATTERN, '', $oEmbed['html']);
             $metaData['tiktok_thumbnail'] = $oEmbed['thumbnail_url'];
