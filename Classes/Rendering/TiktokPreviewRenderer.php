@@ -35,15 +35,15 @@ class TiktokPreviewRenderer extends StandardContentPreviewRenderer
                 $fileObject = $fileReferenceObject->getOriginalFile();
                 if (!$fileObject->isMissing()) {
                     $content .= '<a href="' . $fileObject->getPublicUrl() . '" target="_blank">';
-                    $content .= htmlspecialchars($fileObject->getName());
+                    $content .= htmlspecialchars($fileObject->getProperty('title') . ' (@' . $fileObject->getProperty('tiktok_username') . ')');
 
                     // use latest processed file (64px)
                     /**
-                    $processedFiles = $processedFileRepository->findAllByOriginalFile($fileObject);
-                    foreach ($processedFiles as $processedFile) {
-                        $content .= '<br/><img src="' . $processedFile->getPublicUrl() . '" />';
-                        break;
-                    }
+                     * $processedFiles = $processedFileRepository->findAllByOriginalFile($fileObject);
+                     * foreach ($processedFiles as $processedFile) {
+                     * $content .= '<br/><img src="' . $processedFile->getPublicUrl() . '" />';
+                     * break;
+                     * }
                      */
 
                     // use original thumbnail and control the size
