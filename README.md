@@ -59,7 +59,7 @@ tiktok uses [**semantic versioning**][2], which means, that
 
 ### 3.3 Contribution
 
-**Pull Requests** are gladly welcome! Nevertheless please don't forget to add an issue and connect it to your pull requests. This
+**Pull requests** are gladly welcome! Nevertheless please don't forget to add an issue and connect it to your pull requests. This
 is very helpful to understand what kind of issue the **PR** is going to solve.
 
 **Bugfixes**: Please describe what kind of bug your fix solve and give us feedback how to reproduce the issue. We're going
