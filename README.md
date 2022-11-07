@@ -2,8 +2,8 @@
 
 ## 1 Features
 
-* Tiktok videos can be created as a file in the TYPO3 file list
-* Tiktok videos can be used and output with the text with media element
+tiktok videos can be created as a file in the TYPO3 file list
+tiktok videos can be used and output with the text with media element
 
 ## 2 Usage
 
