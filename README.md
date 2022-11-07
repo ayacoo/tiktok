@@ -50,7 +50,7 @@ Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOv
 | 2.x    | 12.x        | 8.1       | features, bugfixes, security updates |
 | 1.x    | 10.x - 11.x | 7.4 - 8.0 | bugfixes, security updates           |
 
-### 3.2 Release Management
+### 3.2 Release management
 
 tiktok uses [**semantic versioning**][2], which means, that
 * **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes,
