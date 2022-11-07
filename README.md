@@ -52,7 +52,7 @@ Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOv
 
 ### 3.2 Release management
 
-tiktok uses [**semantic versioning**][2], which means, that
+EXT:tiktok uses [**semantic versioning**][2], which means, that
 * **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes,
 * **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes,
 * and **major updates** (e.g. 1.0.0 => 2.0.0) breaking changes which can be refactorings, features or bugfixes.
