@@ -33,7 +33,7 @@ For the output, the HTML is used directly from [Tiktok][4].
 
 In order not to have to access the oEmbed interface permanently, four fields are added to the sys_file_metadata table
 
-### 2.3 Backend Preview
+### 2.3 Backend preview
 
 In the backend, the preview is used by TextMediaRenderer. For online media, this only displays the provider's icon, in this case tiktok. If you want to display the thumbnail, for example, you need your own renderer that overwrites Textmedia. An example renderer is available in the project. Caution: This overwrites all text media elements, so only use this renderer as a basis.
 
