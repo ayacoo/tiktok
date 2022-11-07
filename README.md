@@ -33,7 +33,7 @@ For the output, the HTML is used directly from [Tiktok][4].
 
 In order not to have to access the oEmbed interface permanently, four fields are added to the sys_file_metadata table
 
-### 2.3 Backend Preview
+### 2.3 Backend preview
 
 In the backend, the preview is used by TextMediaRenderer. For online media, this only displays the provider's icon, in this case tiktok. If you want to display the thumbnail, for example, you need your own renderer that overwrites Textmedia. An example renderer is available in the project. Caution: This overwrites all text media elements, so only use this renderer as a basis.
 
@@ -50,7 +50,7 @@ Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOv
 | 2.x    | 12.x        | 8.1       | features, bugfixes, security updates |
 | 1.x    | 10.x - 11.x | 7.4 - 8.0 | bugfixes, security updates           |
 
-### 3.2 Release Management
+### 3.2 Release management
 
 tiktok uses [**semantic versioning**][2], which means, that
 * **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes,
