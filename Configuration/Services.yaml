@@ -9,7 +9,6 @@ services:
     exclude:
       - '../Classes/Domain/Model/*'
       - '../Classes/Helper/*'
-      - '../Classes/Hooks/*'
 
   Ayacoo\Tiktok\Event\FileListEventListener:
     tags:

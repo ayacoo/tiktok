@@ -48,7 +48,7 @@ class TiktokPreviewRenderer extends StandardContentPreviewRenderer
 
                     // use original thumbnail and control the size
                     $image = $fileObject->getMetaData()->offsetGet('tiktok_thumbnail') ?? '';
-                    $content .= '<br/><img style="height: 100px;" src="' . htmlspecialchars($image) . '" />';
+                    $content .= '<br/><img style="height: 150px;" src="' . htmlspecialchars($image) . '" />';
 
                     $content .= '</a>';
                     $content .= '<hr/>';

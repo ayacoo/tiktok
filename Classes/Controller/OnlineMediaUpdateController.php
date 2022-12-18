@@ -80,7 +80,6 @@ class OnlineMediaUpdateController
     protected function updateMetaData(File $file, array $metaData): void
     {
         $metadataRepository = GeneralUtility::makeInstance(MetaDataRepository::class);
-        $metadataRepository->update($file->getUid(), $metaData);
         $metadataRepository->update($file->getUid(), [
             'width' => (int)$metaData['width'],
             'height' => (int)$metaData['height'],
