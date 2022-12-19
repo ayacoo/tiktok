@@ -35,7 +35,7 @@ final class FileListEventListener
             $extension = $fileProperties['extension'] ?? '';
 
             $registeredHelpers = $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['onlineMediaHelpers'] ?? [];
-            if (!array_key_exists($extension, $registeredHelpers)) {
+            if ($extension !== 'tiktok' || !array_key_exists($extension, $registeredHelpers)) {
                 return;
             }
 

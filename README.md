@@ -4,6 +4,7 @@
 
 * Tiktok videos can be created as a file in the TYPO3 file list
 * Tiktok videos can be used and output with the text with media element
+* Update metadata via filelist action or command
 
 ## 2 Usage
 
@@ -37,7 +38,7 @@ In order not to have to access the oEmbed interface permanently, four fields are
 
 In the backend, the preview is used by TextMediaRenderer. For online media, this only displays the provider's icon, in this case tiktok. If you want to display the thumbnail, for example, you need your own renderer that overwrites Textmedia. An example renderer is available in the project. Caution: This overwrites all text media elements, so only use this renderer as a basis.
 
-You register a renderer in the TCA `Configuration/TCA/tt_content.php` with `$GLOBALS['TCA']['tt_content']['types']['textmedia']['previewRenderer'] = \Ayacoo\Tiktok\Rendering\TiktokPreviewRenderer::class;`
+You register a renderer in the TCA `Configuration/TCA/Overrides/tt_content.php` with `$GLOBALS['TCA']['tt_content']['types']['textmedia']['previewRenderer'] = \Ayacoo\Tiktok\Rendering\TiktokPreviewRenderer::class;`
 
 Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/ContentElements/CustomBackendPreview.html
 
@@ -76,3 +77,7 @@ to accept only bugfixes if we can reproduce the issue.
 [3]: https://github.com/georgringer/news
 [4]: https://developers.tiktok.com/doc/embed-videos
 [5]: https://github.com/b13/online-media-updater
+
+## 5 Support
+
+If you are happy with the extension and would like to support it in any way, I would appreciate the support of social institutions.

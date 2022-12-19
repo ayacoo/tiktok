@@ -3,17 +3,17 @@
 	<file source-language="en" datatype="plaintext" original="EXT:tiktok/Resources/Private/Language/locallang.xlf" date="2022-10-13T20:22:32Z" product-name="tiktok">
 		<header/>
 		<body>
-			<trans-unit id="tiktok.update" resname="online_media_updater.update">
-				<source>Update tiktok preview image</source>
+			<trans-unit id="tiktok.update" resname="tiktok.update">
+				<source>Update Tiktok preview image</source>
 			</trans-unit>
-			<trans-unit id="tiktok.alert.success" resname="online_media_updater.alert.success">
+			<trans-unit id="tiktok.alert.success" resname="tiktok.alert.success">
 				<source>Success</source>
 			</trans-unit>
-			<trans-unit id="tiktok.alert.success.text" resname="online_media_updater.alert.success.text">
+			<trans-unit id="tiktok.alert.success.text" resname="tiktok.alert.success.text">
 				<source>Tiktok preview image updated</source>
 			</trans-unit>
-			<trans-unit id="tiktok.alert.error" resname="online_media_updater.alert.error">
-				<source>Failed to update tiktok preview image</source>
+			<trans-unit id="tiktok.alert.error" resname="tiktok.alert.error">
+				<source>Failed to update Tiktok preview image</source>
 			</trans-unit>
 		</body>
 	</file>
