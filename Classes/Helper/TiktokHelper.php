@@ -85,7 +85,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         $previewImageUrl = $properties['tiktok_thumbnail'] ?? '';
 
         $videoId = $this->getOnlineMediaId($file);
-        $temporaryFileName = $this->getTempFolderPath() . 'tiktok_' . md5($videoId) . '.jpg';
+        $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';
 
         if (!empty($previewImageUrl)) {
             $previewImage = GeneralUtility::getUrl($previewImageUrl);

@@ -10,7 +10,7 @@ services:
       - '../Classes/Domain/Model/*'
       - '../Classes/Helper/*'
 
-  Ayacoo\Tiktok\Event\FileListEventListener:
+  Ayacoo\Tiktok\EventListener\FileListEventListener:
     tags:
       - name: event.listener
         identifier: 'ayacoo/tiktok/filelist-listener'
