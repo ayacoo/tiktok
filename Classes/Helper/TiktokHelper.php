@@ -69,9 +69,8 @@ class TiktokHelper extends AbstractOEmbedHelper
         return $file;
     }
 
-    public function getPublicUrl(File $file, $relativeToCurrentScript = false)
+    public function getPublicUrl(File $file)
     {
-        // @deprecated $relativeToCurrentScript since v11, will be removed in TYPO3 v12.0
         $videoId = $this->getOnlineMediaId($file);
 
         $properties = $file->getProperties();
@@ -86,7 +85,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         $previewImageUrl = $properties['tiktok_thumbnail'] ?? '';
 
         $videoId = $this->getOnlineMediaId($file);
-        $temporaryFileName = $this->getTempFolderPath() . 'tiktok_' . md5($videoId) . '.jpg';
+        $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';
 
         if (!empty($previewImageUrl)) {
             $previewImage = GeneralUtility::getUrl($previewImageUrl);
@@ -113,9 +112,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         if ($oEmbed) {
             $metaData['width'] = (int)$oEmbed['width'];
             $metaData['height'] = (int)$oEmbed['height'];
-            if (empty($file->getProperty('title'))) {
-                $metaData['title'] = $this->handleTiktokTitle($oEmbed['title']);
-            }
+            $metaData['title'] = $this->handleTiktokTitle($oEmbed['title']);
             $metaData['author'] = $oEmbed['author_name'];
             $metaData['tiktok_html'] = preg_replace(self::UNICODE_PATTERN, '', $oEmbed['html']);
             $metaData['tiktok_thumbnail'] = $oEmbed['thumbnail_url'];

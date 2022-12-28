@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Ayacoo\Tiktok\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*'
+      - '../Classes/Helper/*'
+
+  Ayacoo\Tiktok\EventListener\FileListEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'ayacoo/tiktok/filelist-listener'
+        event: TYPO3\CMS\Filelist\Event\ProcessFileListActionsEvent
+
+  Ayacoo\Tiktok\Command\UpdateMetadataCommand:
+    tags:
+      - name: 'console.command'
+        command: 'tiktok:updateMetadata'
+        description: 'Updates the Tiktok metadata'
+        schedulable: true
