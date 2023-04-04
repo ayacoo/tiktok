@@ -130,6 +130,6 @@ class TiktokHelper extends AbstractOEmbedHelper
     protected function handleTiktokTitle(string $title): string
     {
         $title = preg_replace(self::UNICODE_PATTERN, '', $title);
-        return trim(mb_substr(strip_tags($title), 0, 255));
+        return trim(mb_substr(strip_tags($title), 0, 100));
     }
 }
