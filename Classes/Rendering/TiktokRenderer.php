@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ayacoo\Tiktok\Rendering;
 
+use Ayacoo\Tiktok\Event\ModifyTiktokOutputEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\FileReference;
@@ -11,6 +13,9 @@ use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\OnlineMediaHelperInterface;
 use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\OnlineMediaHelperRegistry;
 use TYPO3\CMS\Core\Resource\Rendering\FileRendererInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 
 /**
  * Tiktok renderer class
@@ -21,6 +26,14 @@ class TiktokRenderer implements FileRendererInterface
      * @var OnlineMediaHelperInterface|false
      */
     protected $onlineMediaHelper;
+
+    public function __construct(
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ConfigurationManager     $configurationManager
+    )
+    {
+
+    }
 
     /**
      * Returns the priority of the renderer
@@ -49,7 +62,15 @@ class TiktokRenderer implements FileRendererInterface
 
     public function render(FileInterface $file, $width, $height, array $options = [], $usedPathsRelativeToCurrentScript = false)
     {
-        return $file->getProperty('tiktok_html') ?? '';
+        $output = $file->getProperty('tiktok_html') ?? '';
+        if ($this->getPrivacySetting()) {
+            $output = str_replace('src', 'data-name="script-tiktok" data-src', $output);
+        }
+
+        $modifyTiktokOutputEvent = $this->eventDispatcher->dispatch(
+            new ModifyTiktokOutputEvent($output)
+        );
+        return $modifyTiktokOutputEvent->getOutput();
     }
 
     /**
@@ -72,5 +93,24 @@ class TiktokRenderer implements FileRendererInterface
             }
         }
         return $this->onlineMediaHelper;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function getPrivacySetting(): bool
+    {
+        try {
+            $privacy = false;
+            $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+            );
+            if (isset($extbaseFrameworkConfiguration['plugin.']['tx_tiktok.'])) {
+                $privacy = (bool)$extbaseFrameworkConfiguration['plugin.']['tx_tiktok.']['settings.']['privacy'] ?? false;
+            }
+            return $privacy;
+        } catch (InvalidConfigurationTypeException $e) {
+            return false;
+        }
     }
 }
