@@ -24,7 +24,7 @@ composer require ayacoo/tiktok
 
 #### Privacy
 
-With `plugin.tx_ayacoosoundcloud.settings.privacy = 1` you can ensure that the IFrame is built with
+With `plugin.tx_tiktok.settings.privacy = 1` you can ensure that the IFrame is built with
 data-src instead of src. If you need more options to influence the HTML, you can use a PSR-14 event.
 
 ### 2.3 Hints
