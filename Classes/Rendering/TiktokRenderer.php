@@ -29,10 +29,8 @@ class TiktokRenderer implements FileRendererInterface
 
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly ConfigurationManager     $configurationManager
-    )
-    {
-
+        private readonly ConfigurationManager $configurationManager
+    ) {
     }
 
     /**
@@ -57,10 +55,11 @@ class TiktokRenderer implements FileRendererInterface
      */
     public function canRender(FileInterface $file)
     {
-        return ($file->getMimeType() === 'video/tiktok' || $file->getExtension() === 'tiktok') && $this->getOnlineMediaHelper($file) !== false;
+        return ($file->getMimeType() === 'video/tiktok' || $file->getExtension() === 'tiktok') &&
+            $this->getOnlineMediaHelper($file) !== false;
     }
 
-    public function render(FileInterface $file, $width, $height, array $options = [], $usedPathsRelativeToCurrentScript = false)
+    public function render(FileInterface $file, $width, $height, array $options = [])
     {
         $output = $file->getProperty('tiktok_html') ?? '';
         if ($this->getPrivacySetting()) {
@@ -87,7 +86,8 @@ class TiktokRenderer implements FileRendererInterface
                 $orgFile = $orgFile->getOriginalFile();
             }
             if ($orgFile instanceof File) {
-                $this->onlineMediaHelper = GeneralUtility::makeInstance(OnlineMediaHelperRegistry::class)->getOnlineMediaHelper($orgFile);
+                $this->onlineMediaHelper = GeneralUtility::makeInstance(OnlineMediaHelperRegistry::class)
+                    ->getOnlineMediaHelper($orgFile);
             } else {
                 $this->onlineMediaHelper = false;
             }
@@ -105,8 +105,9 @@ class TiktokRenderer implements FileRendererInterface
             $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
                 ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
             );
-            if (isset($extbaseFrameworkConfiguration['plugin.']['tx_tiktok.'])) {
-                $privacy = (bool)$extbaseFrameworkConfiguration['plugin.']['tx_tiktok.']['settings.']['privacy'] ?? false;
+            $extSettings = $extbaseFrameworkConfiguration['plugin.']['tx_tiktok.']['settings.'] ?? null;
+            if (is_array($extSettings)) {
+                $privacy = (bool)$extSettings['privacy'] ?? false;
             }
             return $privacy;
         } catch (InvalidConfigurationTypeException $e) {

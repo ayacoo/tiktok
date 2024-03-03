@@ -34,12 +34,11 @@ class UpdateMetadataCommand extends Command
     }
 
     public function __construct(
-        protected FileRepository          $fileRepository,
-        protected MetaDataRepository      $metadataRepository,
-        protected ResourceFactory         $resourceFactory,
+        protected FileRepository $fileRepository,
+        protected MetaDataRepository $metadataRepository,
+        protected ResourceFactory $resourceFactory,
         protected ProcessedFileRepository $processedFileRepository
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -90,7 +89,9 @@ class UpdateMetadataCommand extends Command
 
         $videoId = $onlineMediaHelper->getOnlineMediaId($file);
         $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';
-        @unlink($temporaryFileName);
+        if (file_exists($temporaryFileName)) {
+            unlink($temporaryFileName);
+        }
         $onlineMediaHelper->getPreviewImage($file);
     }
 

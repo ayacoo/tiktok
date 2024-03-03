@@ -43,7 +43,7 @@ In order not to have to access the oEmbed interface permanently, four fields are
 
 ## 3 Developer Corner
 
-### 3.1 ModifySoundcloudOutputEvent
+### 3.1 ModifyTiktokOutputEvent
 
 If you want to modify the output of the Tiktok HTML, you can use the `ModifyTiktokOutputEvent`.
 
@@ -91,7 +91,7 @@ Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOv
 
 | Tiktok | TYPO3       | PHP       | Support / Development                |
 |--------|-------------|-----------|--------------------------------------|
-| 2.x    | 12.x        | 8.1 - 8.2 | features, bugfixes, security updates |
+| 2.x    | 12.x        | 8.1 - 8.3 | features, bugfixes, security updates |
 | 1.x    | 10.x - 11.x | 7.4 - 8.0 | bugfixes, security updates           |
 
 ### 4.2 Release Management

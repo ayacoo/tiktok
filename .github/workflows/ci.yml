@@ -1,0 +1,157 @@
+---
+# This GitHub Actions workflow uses the same development tools that are also installed locally
+# via Composer or PHIVE and calls them using the Composer scripts.
+name: CI with Composer scripts
+on:
+  push:
+    branches:
+      - main
+      - quality
+  pull_request:
+permissions:
+  contents: read
+  packages: read
+jobs:
+  php-lint:
+    name: "PHP linter"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+      - name: "Show the Composer configuration"
+        run: "composer config --global --list"
+      - name: "Run PHP lint"
+        run: "composer ci:php:lint"
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.1"
+          - "8.2"
+          - "8.3"
+  code-quality:
+    name: "Code quality checks"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+      - name: "Show Composer version"
+        run: "composer --version"
+      - name: "Show the Composer configuration"
+        run: "composer config --global --list"
+      - name: "Cache dependencies installed with composer"
+        uses: actions/cache@v4
+        with:
+          key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          path: ~/.cache/composer
+          restore-keys: "php${{ matrix.php-version }}-composer-\n"
+      - name: "Install Composer dependencies"
+        run: "composer update --no-progress"
+      - name: "Run command"
+        run: "composer ci:${{ matrix.command }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        command:
+          - "php:csfix"
+          - "php:sniff"
+          - "ts:lint"
+          - "xliff:lint"
+        php-version:
+          - "8.3"
+  unit-tests:
+    name: "Unit tests"
+    runs-on: ubuntu-22.04
+    needs: php-lint
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+      - name: "Show Composer version"
+        run: "composer --version"
+      - name: "Show the Composer configuration"
+        run: "composer config --global --list"
+      - name: "Cache dependencies installed with composer"
+        uses: actions/cache@v4
+        with:
+          key: "php${{ matrix.php-version }}-typo3${{ matrix.typo3-version }}-${{ matrix.composer-dependencies }}-composer-${{ hashFiles('**/composer.json') }}"
+          path: ~/.cache/composer
+          restore-keys: "php${{ matrix.php-version }}-typo3${{ matrix.typo3-version }}-${{ matrix.composer-dependencies }}-composer-\n"
+      - name: "Install TYPO3 Core"
+        env:
+          TYPO3: "${{ matrix.typo3-version }}"
+        run: |
+          composer require --no-ansi --no-interaction --no-progress --no-install typo3/cms-core:"$TYPO3"
+          composer show
+      - name: "Install highest dependencies with composer"
+        if: "matrix.composer-dependencies == 'highest'"
+        run: |
+          composer update --no-ansi --no-interaction --no-progress --with-dependencies
+          composer show
+      - name: "Run unit tests"
+        run: "composer ci:tests:unit"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - typo3-version: "^12.4"
+            php-version: "8.1"
+            composer-dependencies: highest
+          - typo3-version: "^12.4"
+            php-version: "8.2"
+            composer-dependencies: highest
+          - typo3-version: "^12.4"
+            php-version: "8.3"
+            composer-dependencies: highest
+  functional-tests:
+    name: "Functional tests"
+    runs-on: ubuntu-22.04
+    needs: php-lint
+    strategy:
+      # This prevents cancellation of matrix job runs, if one/two already failed and let the
+      # rest matrix jobs be executed anyway.
+      fail-fast: false
+      matrix:
+        php: [ '8.1', '8.2', '8.3' ]
+        composerInstall: [ 'composerInstallHighest' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install testing system
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s ${{ matrix.composerInstall }}
+
+      - name: Functional Tests with mariadb (min)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.3 -s functional
+
+      - name: Functional Tests with mariadb (max)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.11 -s functional
+
+      - name: Functional Tests with mysql (min/max)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -j 8.0 -s functional
+
+      - name: Functional Tests with postgres (min)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -k 10 -s functional
+
+      - name: Functional Tests with postgres (max)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -k 16 -s functional
+
+      - name: Functional Tests with sqlite
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d sqlite -s functional
