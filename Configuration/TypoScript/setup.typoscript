@@ -1,0 +1,5 @@
+plugin.tx_tiktok {
+    settings {
+        privacy = {$plugin.tx_tiktok.settings.privacy}
+    }
+}

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ayacoo\Tiktok\Rendering;
@@ -29,13 +30,14 @@ class TiktokPreviewRenderer extends StandardContentPreviewRenderer
             $fileReferences = BackendUtility::resolveFileReferences('tt_content', 'assets', $row);
             foreach ($fileReferences as $fileReferenceObject) {
                 // Do not show previews of hidden references
-                if ($fileReferenceObject->getProperty('hidden')) {
+                if ($fileReferenceObject->getProperty('hidden') === true) {
                     continue;
                 }
                 $fileObject = $fileReferenceObject->getOriginalFile();
                 if (!$fileObject->isMissing()) {
                     $content .= '<a href="' . $fileObject->getPublicUrl() . '" target="_blank">';
-                    $content .= htmlspecialchars($fileObject->getProperty('title') . ' (@' . $fileObject->getProperty('tiktok_username') . ')');
+                    $content .= htmlspecialchars($fileObject->getProperty('title'));
+                    $content .= htmlspecialchars(' (@' . $fileObject->getProperty('tiktok_username') . ')');
 
                     // use latest processed file (64px)
                     /**

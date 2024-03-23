@@ -1,0 +1,11 @@
+/.Build
+.cache
+/composer.lock
+/composer.json.testing
+/.php_cs.cache
+/.php-cs-fixer.cache
+.DS_Store
+.idea/
+.fleet/
+/var/
+Build/testing-docker/.env

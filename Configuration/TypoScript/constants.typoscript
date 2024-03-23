@@ -1,0 +1,6 @@
+plugin.tx_tiktok {
+    settings {
+        # cat=plugin.tx_tiktok//a; type=boolean; label=Privacy (Use data-src instead of src)
+        privacy = 0
+    }
+}
