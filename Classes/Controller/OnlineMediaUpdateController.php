@@ -42,7 +42,9 @@ class OnlineMediaUpdateController
         // remove online media temp image
         $videoId = $onlineMediaViewHelper->getOnlineMediaId($file);
         $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';
-        @unlink($temporaryFileName);
+        if (file_exists($temporaryFileName)) {
+            unlink($temporaryFileName);
+        }
         $previewPath = $onlineMediaViewHelper->getPreviewImage($file);
 
         $this->updateMetaData($file, $onlineMediaViewHelper->getMetaData($file));
@@ -75,7 +77,6 @@ class OnlineMediaUpdateController
      *
      * @param File $file
      * @param array $metaData
-     * @return void
      */
     protected function updateMetaData(File $file, array $metaData): void
     {
@@ -83,7 +84,7 @@ class OnlineMediaUpdateController
         $metadataRepository->update($file->getUid(), [
             'width' => (int)$metaData['width'],
             'height' => (int)$metaData['height'],
-            'tiktok_thumbnail' => $metaData['tiktok_thumbnail']
+            'tiktok_thumbnail' => $metaData['tiktok_thumbnail'],
         ]);
     }
 }

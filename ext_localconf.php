@@ -19,5 +19,4 @@ defined('TYPO3') or die();
 
     $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
     $iconRegistry->registerFileExtension('tiktok', 'mimetypes-media-image-' . $mediaFileExt);
-
 })('tiktok');

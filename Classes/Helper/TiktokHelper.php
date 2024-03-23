@@ -34,7 +34,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         if (preg_match('%(?:.*)tiktok\.com\/@(?:[a-z.\-_0-9]*)\/video\/([0-9]*)%i', $url, $match)) {
             $videoId = $match[1];
         }
-        if (empty($videoId)) {
+        if ($videoId === null || $videoId === '' || $videoId === '0') {
             return null;
         }
 
@@ -58,11 +58,9 @@ class TiktokHelper extends AbstractOEmbedHelper
             $fileName = $mediaId . '.' . $fileExtension;
 
             $oEmbed = $this->getOEmbedData($mediaId);
-            if (!empty($oEmbed['title'])) {
-                $title = $this->handleTiktokTitle($oEmbed['title']);
-                if (!empty($title)) {
-                    $fileName = $title . '.' . $fileExtension;
-                }
+            $title = $this->handleTiktokTitle($oEmbed['title'] ?? '');
+            if ($title !== '' && $title !== '0') {
+                $fileName = $title . '.' . $fileExtension;
             }
             $file = $this->createNewFile($targetFolder, $fileName, $mediaId);
         }
@@ -82,12 +80,12 @@ class TiktokHelper extends AbstractOEmbedHelper
     public function getPreviewImage(File $file)
     {
         $properties = $file->getProperties();
-        $previewImageUrl = $properties['tiktok_thumbnail'] ?? '';
+        $previewImageUrl = trim($properties['tiktok_thumbnail'] ?? '');
 
         $videoId = $this->getOnlineMediaId($file);
         $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';
 
-        if (!empty($previewImageUrl)) {
+        if ($previewImageUrl !== '') {
             $previewImage = GeneralUtility::getUrl($previewImageUrl);
             file_put_contents($temporaryFileName, $previewImage);
             GeneralUtility::fixPermissions($temporaryFileName);
@@ -109,7 +107,7 @@ class TiktokHelper extends AbstractOEmbedHelper
         $metaData = [];
 
         $oEmbed = $this->getOEmbedData($this->getOnlineMediaId($file));
-        if ($oEmbed) {
+        if ($oEmbed !== null) {
             $metaData['width'] = (int)$oEmbed['width'];
             $metaData['height'] = (int)$oEmbed['height'];
             $metaData['title'] = $this->handleTiktokTitle($oEmbed['title']);
