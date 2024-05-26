@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - main
-      - quality
+      - v3
   pull_request:
 permissions:
   contents: read
@@ -32,7 +32,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.1"
           - "8.2"
           - "8.3"
   code-quality:
@@ -68,8 +67,8 @@ jobs:
           - "php:csfix"
           - "php:sniff"
           - "ts:lint"
-          - "xliff:lint"
         php-version:
+          - "8.2"
           - "8.3"
   unit-tests:
     name: "Unit tests"
@@ -112,12 +111,15 @@ jobs:
       matrix:
         include:
           - typo3-version: "^12.4"
-            php-version: "8.1"
-            composer-dependencies: highest
-          - typo3-version: "^12.4"
             php-version: "8.2"
             composer-dependencies: highest
           - typo3-version: "^12.4"
+            php-version: "8.3"
+            composer-dependencies: highest
+          - typo3-version: "^13.1"
+            php-version: "8.2"
+            composer-dependencies: highest
+          - typo3-version: "^13.1"
             php-version: "8.3"
             composer-dependencies: highest
   functional-tests:
@@ -129,7 +131,7 @@ jobs:
       # rest matrix jobs be executed anyway.
       fail-fast: false
       matrix:
-        php: [ '8.1', '8.2', '8.3' ]
+        php: [ '8.2', '8.3' ]
         composerInstall: [ 'composerInstallHighest' ]
     steps:
       - name: Checkout
@@ -139,7 +141,7 @@ jobs:
         run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s ${{ matrix.composerInstall }}
 
       - name: Functional Tests with mariadb (min)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.3 -s functional
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.4 -s functional
 
       - name: Functional Tests with mariadb (max)
         run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.11 -s functional

@@ -10,12 +10,6 @@ services:
       - '../Classes/Domain/Model/*'
       - '../Classes/Helper/*'
 
-  Ayacoo\Tiktok\EventListener\FileListEventListener:
-    tags:
-      - name: event.listener
-        identifier: 'ayacoo/tiktok/filelist-listener'
-        event: TYPO3\CMS\Filelist\Event\ProcessFileListActionsEvent
-
   Ayacoo\Tiktok\Command\UpdateMetadataCommand:
     tags:
       - name: 'console.command'
