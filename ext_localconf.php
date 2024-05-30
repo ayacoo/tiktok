@@ -16,4 +16,7 @@ defined('TYPO3') or die();
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'][$mediaFileExt] = 'video/' . $mediaFileExt;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext'] .= ',' . $mediaFileExt;
+
+    $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
+    $iconRegistry->registerFileExtension($mediaFileExt, 'mimetypes-media-image-' . $mediaFileExt);
 })('tiktok');
