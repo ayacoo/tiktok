@@ -51,6 +51,7 @@ class TiktokHelper extends AbstractOEmbedHelper
      * @param Folder $targetFolder
      * @param string $fileExtension
      * @return File
+     * @throws OnlineMediaAlreadyExistsException
      */
     protected function transformMediaIdToFile($mediaId, Folder $targetFolder, $fileExtension)
     {
