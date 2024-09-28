@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ayacoo\Tiktok\Helper;
 
+use TYPO3\CMS\Core\Resource\Exception\OnlineMediaAlreadyExistsException;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\AbstractOEmbedHelper;
@@ -54,17 +55,19 @@ class TiktokHelper extends AbstractOEmbedHelper
     protected function transformMediaIdToFile($mediaId, Folder $targetFolder, $fileExtension)
     {
         $file = $this->findExistingFileByOnlineMediaId($mediaId, $targetFolder, $fileExtension);
-        if ($file === null) {
-            $fileName = $mediaId . '.' . $fileExtension;
-
-            $oEmbed = $this->getOEmbedData($mediaId);
-            $title = $this->handleTiktokTitle($oEmbed['title'] ?? '');
-            if ($title !== '' && $title !== '0') {
-                $fileName = $title . '.' . $fileExtension;
-            }
-            $file = $this->createNewFile($targetFolder, $fileName, $mediaId);
+        if ($file !== null) {
+            throw new OnlineMediaAlreadyExistsException($file, 1695236851);
         }
-        return $file;
+
+        $fileName = $mediaId . '.' . $fileExtension;
+
+        $oEmbed = $this->getOEmbedData($mediaId);
+        $title = $this->handleTiktokTitle($oEmbed['title'] ?? '');
+        if ($title !== '' && $title !== '0') {
+            $fileName = $title . '.' . $fileExtension;
+        }
+
+        return $this->createNewFile($targetFolder, $fileName, $mediaId);
     }
 
     public function getPublicUrl(File $file)
@@ -81,6 +84,12 @@ class TiktokHelper extends AbstractOEmbedHelper
     {
         $properties = $file->getProperties();
         $previewImageUrl = trim($properties['tiktok_thumbnail'] ?? '');
+
+        // get preview from tiktok
+        if ($previewImageUrl === '') {
+            $oEmbed = $this->getOEmbedData($this->getOnlineMediaId($file));
+            $previewImageUrl = $oEmbed['thumbnail_url'];
+        }
 
         $videoId = $this->getOnlineMediaId($file);
         $temporaryFileName = $this->getTempFolderPath() . $file->getExtension() . '_' . md5($videoId) . '.jpg';

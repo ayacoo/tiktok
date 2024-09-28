@@ -36,7 +36,7 @@ class TiktokPreviewRenderer extends StandardContentPreviewRenderer
                 $fileObject = $fileReferenceObject->getOriginalFile();
                 if (!$fileObject->isMissing()) {
                     $content .= '<a href="' . $fileObject->getPublicUrl() . '" target="_blank">';
-                    $content .= htmlspecialchars($fileObject->getProperty('title'));
+                    $content .= htmlspecialchars($fileObject->getProperty('title') ?? '');
                     $content .= htmlspecialchars(' (@' . $fileObject->getProperty('tiktok_username') . ')');
 
                     // use latest processed file (64px)
@@ -50,7 +50,7 @@ class TiktokPreviewRenderer extends StandardContentPreviewRenderer
 
                     // use original thumbnail and control the size
                     $image = $fileObject->getMetaData()->offsetGet('tiktok_thumbnail') ?? '';
-                    $content .= '<br/><img style="height: 150px;" src="' . htmlspecialchars($image) . '" />';
+                    $content .= '<br/><img style="height: 150px;" src="' . htmlspecialchars((string) $image) . '" />';
 
                     $content .= '</a>';
                     $content .= '<hr/>';
