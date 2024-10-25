@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ayacoo\Tiktok\Tests\Unit\Helper;
 
 use Ayacoo\Tiktok\Helper\TiktokHelper;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\AbstractOEmbedHelper;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -22,17 +23,12 @@ final class TiktokHelperTest extends UnitTestCase
         $this->subject = new TiktokHelper('tiktok');
     }
 
-    /**
-     * @test
-     */
-    public function isAbstractOEmbedHelper(): void
+    public function testIisAbstractOEmbedHelper(): void
     {
         self::assertInstanceOf(AbstractOEmbedHelper::class, $this->subject);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOEmbedUrlReturnsUrl()
     {
         $mediaId = '123456';
@@ -45,9 +41,7 @@ final class TiktokHelperTest extends UnitTestCase
         self::assertEquals($expectedUrl, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPublicUrlReturnsPublicUrl()
     {
         $properties = ['tiktok_username' => 'username123'];
@@ -70,9 +64,7 @@ final class TiktokHelperTest extends UnitTestCase
         self::assertEquals($expectedUrl, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMetaData()
     {
         $fileMock = $this->getMockBuilder(File::class)
@@ -112,9 +104,7 @@ final class TiktokHelperTest extends UnitTestCase
         self::assertEquals($expectedMetaData, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handleTiktokTitle()
     {
         $title = 'Test <span>Title</span>';
@@ -127,9 +117,7 @@ final class TiktokHelperTest extends UnitTestCase
         self::assertEquals($expectedTitle, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handleTiktokTitleWithEmojis()
     {
         $title = 'Test <span>Title 😊</span>';

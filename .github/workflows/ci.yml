@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - main
-      - quality
+      - v3
   pull_request:
 permissions:
   contents: read
@@ -32,7 +32,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.1"
           - "8.2"
           - "8.3"
   code-quality:
@@ -68,8 +67,8 @@ jobs:
           - "php:csfix"
           - "php:sniff"
           - "ts:lint"
-          - "xliff:lint"
         php-version:
+          - "8.2"
           - "8.3"
   unit-tests:
     name: "Unit tests"
@@ -111,13 +110,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - typo3-version: "^12.4"
-            php-version: "8.1"
-            composer-dependencies: highest
-          - typo3-version: "^12.4"
+          - typo3-version: "^13.4"
             php-version: "8.2"
             composer-dependencies: highest
-          - typo3-version: "^12.4"
+          - typo3-version: "^13.4"
             php-version: "8.3"
             composer-dependencies: highest
   functional-tests:
@@ -129,29 +125,29 @@ jobs:
       # rest matrix jobs be executed anyway.
       fail-fast: false
       matrix:
-        php: [ '8.1', '8.2', '8.3' ]
+        php: [ '8.2', '8.3' ]
         composerInstall: [ 'composerInstallHighest' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install testing system
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s ${{ matrix.composerInstall }}
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -s ${{ matrix.composerInstall }}
 
       - name: Functional Tests with mariadb (min)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.3 -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d mariadb -i 10.4 -s functional
 
       - name: Functional Tests with mariadb (max)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -i 10.11 -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d mariadb -i 10.11 -s functional
 
       - name: Functional Tests with mysql (min/max)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -j 8.0 -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d mysql -i 8.0 -s functional
 
       - name: Functional Tests with postgres (min)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -k 10 -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d postgres -i 10 -s functional
 
       - name: Functional Tests with postgres (max)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -k 16 -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d postgres -i 16 -s functional
 
       - name: Functional Tests with sqlite
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d sqlite -s functional
+        run: Build/Scripts/runTests.sh -t 13 -p ${{ matrix.php }} -d sqlite -s functional

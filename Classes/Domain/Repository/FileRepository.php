@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Ayacoo\Tiktok\Domain\Repository;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\AbstractPlatform as DoctrineAbstractPlatform;
+use Doctrine\DBAL\Platforms\MariaDBPlatform as DoctrineMariaDBPlatform;
+use Doctrine\DBAL\Platforms\MySQLPlatform as DoctrineMySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform as DoctrinePostgreSQLPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform as DoctrineSQLitePlatform;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -30,7 +35,7 @@ class FileRepository
             $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)
         );
 
-        $version = $this->platform->getName();
+        $version = $this->getPlatformIdentifier($this->platform);
         $randomFunction = match ($version) {
             'mysql', 'pdo_mysql', 'drizzle_pdo_mysql' => 'RAND()',
             default => 'random()',
@@ -58,5 +63,25 @@ class FileRepository
         $this->platform = $connection->getDatabasePlatform();
 
         return $connection->createQueryBuilder();
+    }
+
+    protected function getPlatformIdentifier(DoctrineAbstractPlatform $platform): string
+    {
+        if ($platform instanceof DoctrineMariaDBPlatform) {
+            return 'mysql';
+        }
+        if ($platform instanceof DoctrineMySQLPlatform) {
+            return 'mysql';
+        }
+        if ($platform instanceof DoctrinePostgreSqlPlatform) {
+            return 'postgresql';
+        }
+        if ($platform instanceof DoctrineSQLitePlatform) {
+            return 'sqlite';
+        }
+        throw new \RuntimeException(
+            'Unsupported Databaseplatform "' . get_class($platform) . '" detected in PlatformInformation',
+            1500958070
+        );
     }
 }
