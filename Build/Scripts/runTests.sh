@@ -520,7 +520,7 @@ case ${TEST_SUITE} in
             fi
             if [ ${TYPO3_VERSION} -eq 13 ]; then
               composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^13.3 || exit 1
+                typo3/cms-core:^13.4 || exit 1
             fi
             composer update --no-progress --no-interaction  || exit 1
             composer show || exit 1
@@ -542,7 +542,7 @@ case ${TEST_SUITE} in
             fi
             if [ ${TYPO3_VERSION} -eq 13 ]; then
               composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^13.3 || exit 1
+                typo3/cms-core:^13.4 || exit 1
             fi
             composer update --no-ansi --no-interaction --no-progress --with-dependencies --prefer-lowest || exit 1
             composer show || exit 1

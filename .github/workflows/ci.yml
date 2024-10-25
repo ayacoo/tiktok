@@ -110,16 +110,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          #- typo3-version: "^12.4"
-            #php-version: "8.2"
-            #composer-dependencies: highest
-          #- typo3-version: "^12.4"
-            #php-version: "8.3"
-            #composer-dependencies: highest
-          - typo3-version: "^13.3"
+          - typo3-version: "^13.4"
             php-version: "8.2"
             composer-dependencies: highest
-          - typo3-version: "^13.3"
+          - typo3-version: "^13.4"
             php-version: "8.3"
             composer-dependencies: highest
   functional-tests:

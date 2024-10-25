@@ -15,7 +15,7 @@
 	],
 	"require": {
 		"php": ">=8.2 < 8.4",
-		"typo3/cms-core": "^13.3"
+		"typo3/cms-core": "^13.4"
 	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.57.0",
@@ -30,7 +30,7 @@
 		"symfony/console": "^7.0",
 		"symfony/translation": "^7.0",
 		"typo3/coding-standards": "^0.5.5",
-		"typo3/testing-framework": "dev-main"
+		"typo3/testing-framework": "^9.0"
 	},
 	"autoload": {
 		"psr-4": {
