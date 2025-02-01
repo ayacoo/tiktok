@@ -1,6 +1,6 @@
 {
 	"name": "ayacoo/tiktok",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"type": "typo3-cms-extension",
 	"description": "Provides a Tiktok online media helper",
 	"homepage": "https://www.ayacoo.de",
@@ -14,7 +14,7 @@
 		"GPL-2.0-or-later"
 	],
 	"require": {
-		"php": ">=8.1 < 8.4",
+		"php": ">=8.1 < 8.5",
 		"typo3/cms-core": "^12.4"
 	},
 	"require-dev": {
@@ -50,8 +50,8 @@
 		}
 	},
 	"scripts": {
-		"ci:php:cs": "php ./.Build/bin/php-cs-fixer fix  --dry-run -v --config ./Build/php-cs-fixer/php-cs-fixer.php ./",
-		"ci:php:csfix": "php ./.Build/bin/php-cs-fixer fix  -v --config ./Build/php-cs-fixer/php-cs-fixer.php ./",
+		"ci:php:cs": "PHP_CS_FIXER_IGNORE_ENV=1 php ./.Build/bin/php-cs-fixer fix  --dry-run -v --config ./Build/php-cs-fixer/php-cs-fixer.php ./",
+		"ci:php:csfix": "PHP_CS_FIXER_IGNORE_ENV=1 php ./.Build/bin/php-cs-fixer fix  -v --config ./Build/php-cs-fixer/php-cs-fixer.php ./",
 		"ci:php:lint": "find .*.php *.php Classes Configuration Tests -name '*.php' -print0 | xargs -r -0 -n 1 -P 4 php -l",
 		"ci:php:sniff": "phpcs Classes Configuration Tests",
 		"ci:php:stan": "phpstan --no-progress",
