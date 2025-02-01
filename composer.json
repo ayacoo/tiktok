@@ -1,6 +1,6 @@
 {
 	"name": "ayacoo/tiktok",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "typo3-cms-extension",
 	"description": "Provides a Tiktok online media helper",
 	"homepage": "https://www.ayacoo.de",
@@ -14,7 +14,7 @@
 		"GPL-2.0-or-later"
 	],
 	"require": {
-		"php": ">=8.2 < 8.4",
+		"php": ">=8.2 < 8.5",
 		"typo3/cms-core": "^13.4"
 	},
 	"require-dev": {
