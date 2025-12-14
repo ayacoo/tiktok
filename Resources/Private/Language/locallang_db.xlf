@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2025-12-14T00:00:00Z">
+    <body>
+      <trans-unit id="tab.tiktok" resname="tab.tiktok">
+        <source>TikTok</source>
+      </trans-unit>
+      <trans-unit id="sys_file_metadata.tiktok_thumbnail" resname="sys_file_metadata.tiktok_thumbnail">
+        <source>TikTok thumbnail</source>
+      </trans-unit>
+      <trans-unit id="sys_file_metadata.tiktok_html" resname="sys_file_metadata.tiktok_html">
+        <source>TikTok HTML</source>
+      </trans-unit>
+      <trans-unit id="sys_file_metadata.tiktok_author_url" resname="sys_file_metadata.tiktok_author_url">
+        <source>TikTok author URL</source>
+      </trans-unit>
+      <trans-unit id="sys_file_metadata.tiktok_username" resname="sys_file_metadata.tiktok_username">
+        <source>TikTok username</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

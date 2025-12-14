@@ -45,8 +45,8 @@ handleDbmsOptions() {
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
                 exit 1
             fi
-            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="10.2"
-            if ! [[ ${DBMS_VERSION} =~ ^(10.2|10.3|10.4|10.5|10.6|10.7|10.8|10.9|10.10|10.11|11.0|11.1)$ ]]; then
+            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="10.11"
+            if ! [[ ${DBMS_VERSION} =~ ^(10.4|10.5|10.6|10.7|10.8|10.9|10.10|10.11|11.0|11.1|11.4|11.8)$ ]]; then
                 echo "Invalid combination -d ${DBMS} -i ${DBMS_VERSION}" >&2
                 echo >&2
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
@@ -61,8 +61,8 @@ handleDbmsOptions() {
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
                 exit 1
             fi
-            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="5.5"
-            if ! [[ ${DBMS_VERSION} =~ ^(5.5|5.6|5.7|8.0)$ ]]; then
+            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="8.4"
+            if ! [[ ${DBMS_VERSION} =~ ^(8.0|8.1|8.2|8.3|8.4|9.5)$ ]]; then
                 echo "Invalid combination -d ${DBMS} -i ${DBMS_VERSION}" >&2
                 echo >&2
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
@@ -76,8 +76,8 @@ handleDbmsOptions() {
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
                 exit 1
             fi
-            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="10"
-            if ! [[ ${DBMS_VERSION} =~ ^(10|11|12|13|14|15|16)$ ]]; then
+            [ -z "${DBMS_VERSION}" ] && DBMS_VERSION="16"
+            if ! [[ ${DBMS_VERSION} =~ ^(10|11|12|13|14|15|16|17|18)$ ]]; then
                 echo "Invalid combination -d ${DBMS} -i ${DBMS_VERSION}" >&2
                 echo >&2
                 echo "Use \".Build/Scripts/runTests.sh -h\" to display help and valid options" >&2
@@ -200,8 +200,6 @@ Options:
     -i version
         Specify a specific database version
         With "-d mariadb":
-            - 10.2   short-term, maintained until 2023-05-25 (default)
-            - 10.3   short-term, maintained until 2023-05-25
             - 10.4   short-term, maintained until 2024-06-18
             - 10.5   short-term, maintained until 2025-06-24
             - 10.6   long-term, maintained until 2026-06
@@ -209,38 +207,37 @@ Options:
             - 10.8   short-term, maintained until 2023-05
             - 10.9   short-term, maintained until 2023-08
             - 10.10  short-term, maintained until 2023-11
-            - 10.11  long-term, maintained until 2028-02
+            - 10.11  long-term, maintained until 2028-02 (default)
             - 11.0   development series
             - 11.1   short-term development series
+            - 11.4  long-term, maintained until 2033-01
+            - 11.8  long-term, maintained until 2033-10
         With "-d mysql":
-            - 5.5   unmaintained since 2018-12 (default)
-            - 5.6   unmaintained since 2021-02
-            - 5.7   maintained until 2023-10
-            - 8.0   maintained until 2026-04
+            - 8.0   long-term, maintained until 2026-04
+            - 8.4   long-term, maintained until 2032-30
         With "-d postgres":
-            - 10    unmaintained since 2022-11-10 (default)
+            - 10    unmaintained since 2022-11-10
             - 11    unmaintained since 2023-11-09
             - 12    maintained until 2024-11-14
             - 13    maintained until 2025-11-13
             - 14    maintained until 2026-11-12
             - 15    maintained until 2027-11-11
-            - 16    maintained until 2028-11-09
+            - 16    maintained until 2028-11-09 (default)
+            - 17    maintained until 2029-11-08
+            - 18    maintained until 2029-11-14
 
-    -t <11|12|13>
+    -t <13>
         Only with -s composerInstall|composerInstallMin|composerInstallMax
         Specifies the TYPO3 CORE Version to be used
-            - 11.5: use TYPO3 v11 (default)
-            - 12.4: use TYPO3 v12
-            - 13.4: use TYPO3 v13
+            - 13.4: use TYPO3 v13 (default)
+            - 14.0: use TYPO3 v14
 
-    -p <7.4|8.0|8.1|8.2|8.3|8.4>
+    -p <8.2|8.3|8.4|8.5>
         Specifies the PHP minor version to be used
-            - 7.4: use PHP 7.4 (default)
-            - 8.0: use PHP 8.0
-            - 8.1: use PHP 8.1
             - 8.2: use PHP 8.2
-            - 8.3: use PHP 8.3
+            - 8.3: use PHP 8.3 (default)
             - 8.4: use PHP 8.4
+            - 8.5: use PHP 8.5
 
     -e "<phpunit options>"
         Only with -s docsGenerate|functional|unit
@@ -277,24 +274,24 @@ Options:
         Show this help.
 
 Examples:
-    # Run all core unit tests using PHP 7.4
+    # Run all core unit tests using PHP 8.5
     ./Build/Scripts/runTests.sh -s unit
 
     # Run all core units tests and enable xdebug (have a PhpStorm listening on port 9003!)
     ./Build/Scripts/runTests.sh -x -s unit
 
-    # Run unit tests in phpunit verbose mode with xdebug on PHP 8.1 and filter for test canRetrieveValueWithGP
-    ./Build/Scripts/runTests.sh -x -p 8.1 -- --filter 'classCanBeRegistered'
+    # Run unit tests in phpunit verbose mode with xdebug on PHP 8.3 and filter for test canRetrieveValueWithGP
+    ./Build/Scripts/runTests.sh -x -p 8.3 -- --filter 'classCanBeRegistered'
 
     # Run functional tests in phpunit with a filtered test method name in a specified file
     # example will currently execute two tests, both of which start with the search term
     ./Build/Scripts/runTests.sh -s functional -- --filter 'findRecordByImportSource' Tests/Functional/Repository/CategoryRepositoryTest.php
 
-    # Run functional tests on postgres with xdebug, php 8.1 and execute a restricted set of tests
-    ./Build/Scripts/runTests.sh -x -p 8.1 -s functional -d postgres -- Tests/Functional/Repository/CategoryRepositoryTest.php
+    # Run functional tests on postgres with xdebug, php 8.3 and execute a restricted set of tests
+    ./Build/Scripts/runTests.sh -x -p 8.3 -s functional -d postgres -- Tests/Functional/Repository/CategoryRepositoryTest.php
 
-    # Run functional tests on postgres 11
-    ./Build/Scripts/runTests.sh -s functional -d postgres -i 11
+    # Run functional tests on postgres 16
+    ./Build/Scripts/runTests.sh -s functional -d postgres -i 16
 EOF
 }
 
@@ -313,17 +310,17 @@ ROOT_DIR="${PWD}"
 
 # Option defaults
 TEST_SUITE=""
-TYPO3_VERSION="11"
+TYPO3_VERSION="14"
 DBMS="sqlite"
 DBMS_VERSION=""
-PHP_VERSION="8.1"
+PHP_VERSION="8.3"
 PHP_XDEBUG_ON=0
 PHP_XDEBUG_PORT=9003
 EXTRA_TEST_OPTIONS=""
 CGLCHECK_DRY_RUN=0
 DATABASE_DRIVER=""
 CONTAINER_BIN=""
-COMPOSER_ROOT_VERSION="12.4.2"
+COMPOSER_ROOT_VERSION="14.0.1"
 CONTAINER_INTERACTIVE="-it --init"
 HOST_UID=$(id -u)
 HOST_PID=$(id -g)
@@ -363,7 +360,7 @@ while getopts "a:b:s:d:i:p:e:t:xy:nhu" OPT; do
             ;;
         p)
             PHP_VERSION=${OPTARG}
-            if ! [[ ${PHP_VERSION} =~ ^(7.4|8.0|8.1|8.2|8.3|8.4)$ ]]; then
+            if ! [[ ${PHP_VERSION} =~ ^(8.2|8.3|8.4|8.5)$ ]]; then
                 INVALID_OPTIONS+=("-p ${OPTARG}")
             fi
             ;;
@@ -372,7 +369,7 @@ while getopts "a:b:s:d:i:p:e:t:xy:nhu" OPT; do
             ;;
         t)
             TYPO3_VERSION=${OPTARG}
-            if ! [[ ${TYPO3_VERSION} =~ ^(11|12|13)$ ]]; then
+            if ! [[ ${TYPO3_VERSION} =~ ^(14)$ ]]; then
                 INVALID_OPTIONS+=("-t ${OPTARG}")
             fi
             ;;
@@ -445,7 +442,7 @@ mkdir -p .cache
 mkdir -p .Build/public/typo3temp/var/tests
 
 IMAGE_PHP="ghcr.io/typo3/core-testing-$(echo "php${PHP_VERSION}" | sed -e 's/\.//'):latest"
-IMAGE_ALPINE="docker.io/alpine:3.8"
+IMAGE_ALPINE="docker.io/alpine:3.22"
 IMAGE_DOCS="ghcr.io/typo3-documentation/render-guides:latest"
 IMAGE_MARIADB="docker.io/mariadb:${DBMS_VERSION}"
 IMAGE_MYSQL="docker.io/mysql:${DBMS_VERSION}"
@@ -510,17 +507,9 @@ case ${TEST_SUITE} in
         cleanComposer
         stashComposerFiles
         ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name composer-install-highest-${SUFFIX} -e COMPOSER_CACHE_DIR=.cache/composer -e COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION} ${IMAGE_PHP} /bin/bash -c "
-            if [ ${TYPO3_VERSION} -eq 11 ]; then
+            if [ ${TYPO3_VERSION} -eq 14 ]; then
               composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^11.5.24 || exit 1
-            fi
-            if [ ${TYPO3_VERSION} -eq 12 ]; then
-              composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^12.4.2 || exit 1
-            fi
-            if [ ${TYPO3_VERSION} -eq 13 ]; then
-              composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^13.4 || exit 1
+                typo3/cms-core:^14.0 || exit 1
             fi
             composer update --no-progress --no-interaction  || exit 1
             composer show || exit 1
@@ -532,17 +521,9 @@ case ${TEST_SUITE} in
         cleanComposer
         stashComposerFiles
         ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name composer-install-lowest-${SUFFIX} -e COMPOSER_CACHE_DIR=.cache/composer -e COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION} ${IMAGE_PHP} /bin/bash -c "
-            if [ ${TYPO3_VERSION} -eq 11 ]; then
+            if [ ${TYPO3_VERSION} -eq 14 ]; then
               composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^11.5.24 || exit 1
-            fi
-            if [ ${TYPO3_VERSION} -eq 12 ]; then
-              composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^12.4.2 || exit 1
-            fi
-            if [ ${TYPO3_VERSION} -eq 13 ]; then
-              composer require --no-ansi --no-interaction --no-progress --no-install \
-                typo3/cms-core:^13.4 || exit 1
+                typo3/cms-core:^14.0 || exit 1
             fi
             composer update --no-ansi --no-interaction --no-progress --with-dependencies --prefer-lowest || exit 1
             composer show || exit 1
