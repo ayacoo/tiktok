@@ -29,6 +29,7 @@ $additionalColumns = [
             'rows' => 4,
             'readOnly' => true,
         ],
+        'displayCond' => 'USER:Ayacoo\\Tiktok\\Tca\\DisplayCond\\IsTiktok->match',
     ],
     'tiktok_author_url' => [
         'exclude' => true,
@@ -40,6 +41,7 @@ $additionalColumns = [
             'readOnly' => true,
             'size' => 40,
         ],
+        'displayCond' => 'USER:Ayacoo\\Tiktok\\Tca\\DisplayCond\\IsTiktok->match',
     ],
     'tiktok_username' => [
         'exclude' => true,
@@ -51,6 +53,7 @@ $additionalColumns = [
             'default' => '',
             'readOnly' => true,
         ],
+        'displayCond' => 'USER:Ayacoo\\Tiktok\\Tca\\DisplayCond\\IsTiktok->match',
     ],
 ];
 
