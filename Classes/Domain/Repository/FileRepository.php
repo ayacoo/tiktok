@@ -73,7 +73,7 @@ class FileRepository
         if ($platform instanceof DoctrineMySQLPlatform) {
             return 'mysql';
         }
-        if ($platform instanceof DoctrinePostgreSqlPlatform) {
+        if ($platform instanceof DoctrinePostgreSQLPlatform) {
             return 'postgresql';
         }
         if ($platform instanceof DoctrineSQLitePlatform) {

@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - v3
+      - php85
   pull_request:
 permissions:
   contents: read
@@ -35,6 +36,7 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
   code-quality:
     name: "Code quality checks"
     runs-on: ubuntu-22.04
@@ -72,6 +74,7 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
   unit-tests:
     name: "Unit tests"
     runs-on: ubuntu-22.04
@@ -121,6 +124,9 @@ jobs:
           - typo3-version: "^13.4"
             php-version: "8.4"
             composer-dependencies: highest
+          - typo3-version: "^13.4"
+            php-version: "8.5"
+            composer-dependencies: highest
   functional-tests:
     name: "Functional tests"
     runs-on: ubuntu-22.04
@@ -130,7 +136,7 @@ jobs:
       # rest matrix jobs be executed anyway.
       fail-fast: false
       matrix:
-        php: [ '8.2', '8.3', '8.4' ]
+        php: [ '8.2', '8.3', '8.4', '8.5' ]
         composerInstall: [ 'composerInstallHighest' ]
     steps:
       - name: Checkout
