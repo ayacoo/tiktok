@@ -151,7 +151,7 @@ restoreComposerFiles() {
 
 loadHelp() {
     # Load help text into $HELP
-    read -r -d '' HELP <<EOF
+    read -r -d '' HELP <<'EOF'
 TYPO3 core test runner. Execute unit, functional and other test suites in
 a container based test environment. Handles execution of single test files,
 sending xdebug information to a local IDE and more.
@@ -563,7 +563,11 @@ case ${TEST_SUITE} in
                 SUITE_EXIT_CODE=$?
                 ;;
             postgres)
-                ${CONTAINER_BIN} run --rm ${CI_PARAMS} --name postgres-func-${SUFFIX} --network ${NETWORK} -d -e POSTGRES_PASSWORD=funcp -e POSTGRES_USER=funcu --tmpfs /var/lib/postgresql/data:rw,noexec,nosuid ${IMAGE_POSTGRES} >/dev/null
+                POSTGRES_TMPFS="/var/lib/postgresql/data"
+                if [[ ${DBMS_VERSION} -eq 18 ]]; then
+                    POSTGRES_TMPFS="/var/lib/postgresql"
+                fi
+                ${CONTAINER_BIN} run --rm ${CI_PARAMS} --name postgres-func-${SUFFIX} --network ${NETWORK} -d -e POSTGRES_PASSWORD=funcp -e POSTGRES_USER=funcu --tmpfs ${POSTGRES_TMPFS}:rw,noexec,nosuid ${IMAGE_POSTGRES} >/dev/null
                 waitFor postgres-func-${SUFFIX} 5432
                 CONTAINERPARAMS="-e typo3DatabaseDriver=pdo_pgsql -e typo3DatabaseName=bamboo -e typo3DatabaseUsername=funcu -e typo3DatabaseHost=postgres-func-${SUFFIX} -e typo3DatabasePassword=funcp"
                 ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name functional-${SUFFIX} ${XDEBUG_MODE} -e XDEBUG_CONFIG="${XDEBUG_CONFIG}" ${CONTAINERPARAMS} ${IMAGE_PHP} "${COMMAND[@]}"
