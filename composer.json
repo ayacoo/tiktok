@@ -2,7 +2,7 @@
 	"name": "ayacoo/tiktok",
 	"version": "4.0.0",
 	"type": "typo3-cms-extension",
-	"description": "Provides a Tiktok online media helper",
+	"description": "TikTok - Provides a TikTok online media helper",
 	"homepage": "https://www.ayacoo.de",
 	"authors": [
 		{
