@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Resource\Rendering\FileRendererInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
 
 /**
  * Tiktok renderer class
@@ -110,7 +110,7 @@ class TiktokRenderer implements FileRendererInterface
                 $privacy = (bool)$extSettings['privacy'] ?? false;
             }
             return $privacy;
-        } catch (InvalidConfigurationTypeException $e) {
+        } catch (NoServerRequestGivenException $e) {
             return false;
         }
     }
