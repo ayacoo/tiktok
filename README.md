@@ -96,11 +96,7 @@ Documentation: https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOv
 
 ### 3.3 Content security policy
 
-If CSP is activated in the backend, policies will be automatically added.
-To do this, the file Configuration/ContentSecurityPolicies.php is used.
-
-If CSP is to be extended for the frontend, the configuration can be added
-in a site package extension or in the global csp.yml
+By default, CSP settings are added for the frontend and backend. These settings can be modified via YAML or events.
 
 Take a look at the current documentation:
 https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/ContentSecurityPolicy/Index.html
@@ -111,9 +107,10 @@ https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/ContentS
 
 | Tiktok | TYPO3       | PHP       | Support / Development                |
 |--------|-------------|-----------|--------------------------------------|
-| 3.x    | 13.x        | 8.2 - 8.5 | features, bugfixes, security updates |
+| 4.x    | 14.x        | 8.2 - 8.5 | features, bugfixes, security updates |
+| 3.x    | 13.x        | 8.2 - 8.5 | bugfixes, security updates           |
 | 2.x    | 12.x        | 8.1 - 8.4 | bugfixes, security updates           |
-| 1.x    | 10.x - 11.x | 7.4 - 8.0 | bugfixes, security updates           |
+| 1.x    | 10.x - 11.x | 7.4 - 8.0 | security updates                     |
 
 ### 4.2 Release Management
 

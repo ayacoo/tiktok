@@ -6,6 +6,7 @@ namespace Ayacoo\Tiktok\Command;
 
 use Ayacoo\Tiktok\Domain\Repository\FileRepository;
 use Ayacoo\Tiktok\Helper\TiktokHelper;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,6 +20,7 @@ use TYPO3\CMS\Core\Resource\ProcessedFileRepository;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+#[AsCommand('tiktok:updateMetadata', 'Updates the Tiktok metadata')]
 class UpdateMetadataCommand extends Command
 {
     protected function configure(): void
